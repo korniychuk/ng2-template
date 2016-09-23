@@ -1,0 +1,89 @@
+#!/usr/bin/php
+<?php
+$name = $argv[1];
+
+if (empty($name)) {
+	echo 'name must be set';
+	die;
+}
+
+$nameCamel = preg_replace_callback('/^.|-./', function($matches) {
+    return str_replace('-', '', strtoupper($matches[0]));
+}, $name);
+$nameCamelLower = lcfirst($nameCamel);
+
+// -----------------------------------------------------------------------
+
+// 1. make dir
+$rootDir = getcwd().'/'.$name;
+mkdir($rootDir);
+
+// 2. make index.ts file
+$tpl = "export * from './$name.component';";
+file_put_contents($rootDir.'/index.ts', $tpl);
+
+// 3. pug template
+$tpl = "| $name";
+file_put_contents($rootDir."/$name.component.pug", $tpl);
+
+// 4. less template
+$tpl = "
+:host {
+
+}
+";
+file_put_contents($rootDir."/$name.component.less", $tpl);
+
+// 5. The component
+$tpl = "
+import { Component, OnInit } from '@angular/core';
+
+@Component({
+  selector:    '$name',
+  template:    require('./$name.component.pug'),
+  styleUrls:   ['./$name.component.less'],
+})
+export class {$nameCamel}Component implements OnInit {
+  public constructor(
+  ) {
+  }
+
+  public ngOnInit() {
+  }
+
+}
+";
+file_put_contents($rootDir."/$name.component.ts", $tpl);
+
+// 6. Unit-test
+$tpl = "
+import { ActivatedRoute, Data } from '@angular/router';
+import { Component } from '@angular/core';
+import { inject, TestBed } from '@angular/core/testing';
+
+// Load the implementations that should be tested
+import { $nameCamel } from './$name.component';
+
+class {$nameCamel}Mock extends $nameCamel {
+
+}
+
+describe('$nameCamel', () => {
+  // provide our implementations or mocks to the dependency injector
+  beforeEach(() => TestBed.configureTestingModule({
+    providers: [
+      {
+        provide: About,
+        useClass: About,
+      },
+      
+    ]
+  }));
+
+  it('method ngOnInit() should exists', inject([$nameCamel], (unit: {$nameCamel}Mock) => {
+    expect(typeof unit.ngOnInit).toEqual('function');
+  }));
+
+});
+";
+file_put_contents($rootDir."/$name.component.spec.ts", $tpl);

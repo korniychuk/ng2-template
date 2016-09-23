@@ -1,0 +1,14 @@
+{
+    "name": "anton/ngt",
+    "type": "project",
+    "authors": [
+        {
+            "name": "Anton Korniychuk",
+            "email": "ancor.root@gmail.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {
+        "nategood/commando": "*"
+    }
+}
