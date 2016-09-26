@@ -29,7 +29,7 @@ $tpl = "| $name";
 makeFile($dir."/$name.component.pug", $tpl);
 
 //
-// 4. less template
+// 4. less|scss template
 //
 $tpl = <<<TPL
 :host {
@@ -48,7 +48,7 @@ import { Component, OnInit } from '@angular/core';
 @Component({
   selector:    '$name',
   template:    require('./$name.component.pug'),
-  styleUrls:   ['./$name.component.less'],
+  styleUrls:   ['./$name.component.$styleExt'],
 })
 export class {$nameCamel}Component implements OnInit {
   public constructor(

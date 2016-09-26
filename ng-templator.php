@@ -28,6 +28,12 @@ $cmd->option('s')
         return in_array($title, $preprocessors);
     })
     ->default('less');
+
+$cmd->option('wc')
+    ->aka('with-component')
+    ->boolean()
+    ->describedAs('Create a main component for the module? (need for module');
+
 /*
 
 // Define a flag "-t" a.k.a. "--title"
@@ -58,6 +64,7 @@ $cmd->option('c')
 //echo "Hello {$cmd['title']}$name!", PHP_EOL;
 
 $rootDir = getcwd();
+$commandsDir = __DIR__.'/commands';
 
 $name = $cmd[1];
 
@@ -91,6 +98,6 @@ $commandName = $cmd[0];
 
 echo "Creation $commandName '$name'\n\n";
 
-require(__DIR__."/commands/$commandName.php");
+require("$commandsDir/$commandName.php");
 
 echo "\nDone!\n\n";
