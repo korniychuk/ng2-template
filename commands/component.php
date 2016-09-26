@@ -7,6 +7,9 @@
  * @var string $nameCamelLower
  */
 
+/** @var string $styleExt */
+$styleExt = $cmd['style'];
+
 //
 // 1. make dir
 //
@@ -28,17 +31,18 @@ makeFile($dir."/$name.component.pug", $tpl);
 //
 // 4. less template
 //
-$tpl = "
+$tpl = <<<TPL
 :host {
 
 }
-";
-makeFile($dir."/$name.component.less", $tpl);
+
+TPL;
+makeFile($dir."/$name.component.$styleExt", $tpl);
 
 //
 // 5. The component
 //
-$tpl = "
+$tpl = <<<TPL
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -55,13 +59,13 @@ export class {$nameCamel}Component implements OnInit {
   }
 
 }
-";
+TPL;
 makeFile($dir."/$name.component.ts", $tpl);
 
 //
 // 6. Unit-test
 //
-$tpl = "
+$tpl = <<<TPL
 import { ActivatedRoute, Data } from '@angular/router';
 import { Component } from '@angular/core';
 import { inject, TestBed } from '@angular/core/testing';
@@ -90,6 +94,6 @@ describe('$nameCamel', () => {
   }));
 
 });
-";
+TPL;
 makeFile($dir."/$name.component.spec.ts", $tpl);
 

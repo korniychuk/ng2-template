@@ -18,6 +18,16 @@ $cmd->option()
 $cmd->option()
     ->require()
     ->describedAs('Entity name');
+
+// Configure additional parameters
+$cmd->option('s')
+    ->aka('style')
+    ->describedAs('What preprocessor need to be used for styles file? (need for component')
+    ->must(function($title) {
+        $preprocessors = array('less', 'scss');
+        return in_array($title, $preprocessors);
+    })
+    ->default('less');
 /*
 
 // Define a flag "-t" a.k.a. "--title"
