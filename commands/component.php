@@ -59,6 +59,7 @@ export class {$nameCamel}Component implements OnInit {
   }
 
 }
+
 TPL;
 makeFile($dir."/$name.component.ts", $tpl);
 
@@ -71,29 +72,33 @@ import { Component } from '@angular/core';
 import { inject, TestBed } from '@angular/core/testing';
 
 // Load the implementations that should be tested
-import { $nameCamel } from './$name.component';
+import { {$nameCamel}Component } from './$name.component';
 
-class {$nameCamel}Mock extends $nameCamel {
+class {$nameCamel}Mock extends {$nameCamel}Component {
 
 }
 
-describe('$nameCamel', () => {
+describe('{$nameCamel}Component', () => {
   // provide our implementations or mocks to the dependency injector
   beforeEach(() => TestBed.configureTestingModule({
     providers: [
       {
-        provide: $nameCamel,
-        useClass: $nameCamel,
+        provide: {$nameCamel}Component,
+        useClass: {$nameCamel}Component,
       },
-      
+
     ]
   }));
 
-  it('method ngOnInit() should exists', inject([$nameCamel], (unit: {$nameCamel}Mock) => {
+  it('method ngOnInit() should exists', inject([{$nameCamel}Component], (unit: {$nameCamel}Mock) => {
     expect(typeof unit.ngOnInit).toEqual('function');
   }));
 
 });
+
 TPL;
 makeFile($dir."/$name.component.spec.ts", $tpl);
 
+//
+// 7. e2e test
+//
