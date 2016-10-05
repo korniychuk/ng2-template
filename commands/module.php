@@ -80,10 +80,11 @@ export const routes = [
 TPL;
 } else {
     $tpl = <<<TPL
+import { Route } from '@angular/router';
 import { ComponentName } from './component-name.component';
 
 // async components must be named routes for WebpackAsyncRoute
-export const routes = [
+export const routes: Route[] = [
   { path: '', component: ComponentName, pathMatch: 'full' }
 ];
 TPL;
