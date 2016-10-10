@@ -63,6 +63,9 @@ TPL;
 if ($isWithComponent) {
     $tpl = str_replace('%ROOT_COMPONENT%', "{$nameCamel}Component,", $tpl);
     $tpl = str_replace("%ROOT_COMPONENT_IMPORT%", "\nimport { {$nameCamel}Component } from './$name.component';", $tpl);
+} else {
+    $tpl = str_replace('%ROOT_COMPONENT%', "", $tpl);
+    $tpl = str_replace("%ROOT_COMPONENT_IMPORT%", "", $tpl);
 }
 makeFile($dir."/index.ts", $tpl);
 
