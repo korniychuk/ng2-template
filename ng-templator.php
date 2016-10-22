@@ -10,7 +10,7 @@ $cmd->option()
     ->require()
     ->describedAs('Command name')
     ->must(function($title) {
-        $titles = array('component', 'module', 'pipe', 'service');
+        $titles = array('component', 'module', 'pipe', 'service', 'directive');
         return in_array($title, $titles);
     });
 
