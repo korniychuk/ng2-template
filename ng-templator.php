@@ -34,6 +34,10 @@ $cmd->option('wc')
     ->boolean()
     ->describedAs('Create a main component for the module? (need for module');
 
+$cmd->option('tp')
+    ->aka('tag-prefix')
+    ->describedAs('Create a prefix for tag selector. (Need for component)');
+
 /*
 
 // Define a flag "-t" a.k.a. "--title"
