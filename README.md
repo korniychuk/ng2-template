@@ -10,7 +10,7 @@ chmod +x ~/bin/ngt
 
 Notice: `~/bin` should be added to $PATH.
 
-## Commands
+## Generating of blanks
 
 - [Component](#component)
 - [Module](#module)
@@ -21,7 +21,7 @@ Notice: `~/bin` should be added to $PATH.
 
 ---
 
-#### Component
+### Component
 ```bash
 $ ngt component my-component
 ```
@@ -42,7 +42,7 @@ Parameters:
 - `-s\--style scss` - generate styles in `.scss` format instead of `.less`
 
 
-#### Module
+### Module
 ```bash
 ngt module my-module
 ```
@@ -70,7 +70,7 @@ Parameters:
     Component parameters `-tp`, `-s` also available when you creates component with a module.  
 
 
-#### Directive
+### Directive
 ```bash
 ngt directive super-highlight
 ```
@@ -87,7 +87,7 @@ Parameters:
   Default value is `app`
   
 
-#### Pipe
+### Pipe
 ```bash
 ngt pipe pretty
 ```
@@ -99,7 +99,7 @@ Makes structure:
     ├───pretty.pipe.spec.ts
 
 
-#### Service
+### Service
 ```bash
 ngt service user-api
 ```
