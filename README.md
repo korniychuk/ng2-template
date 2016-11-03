@@ -44,7 +44,7 @@ Parameters:
 
 ### Module
 ```bash
-ngt module my-module
+$ ngt module my-module
 ```
 
 Makes structure:
@@ -72,7 +72,7 @@ Parameters:
 
 ### Directive
 ```bash
-ngt directive super-highlight
+$ ngt directive super-highlight
 ```
 
 Makes structure:
@@ -89,7 +89,7 @@ Parameters:
 
 ### Pipe
 ```bash
-ngt pipe pretty
+$ ngt pipe pretty
 ```
 
 Makes structure:
@@ -101,7 +101,7 @@ Makes structure:
 
 ### Service
 ```bash
-ngt service user-api
+$ ngt service user-api
 ```
 
 Makes structure:
@@ -113,7 +113,7 @@ Makes structure:
 
 #### Model
 ```bash
-ngt model user
+$ ngt model user
 ```
 
 Makes structure:
