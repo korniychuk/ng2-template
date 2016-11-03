@@ -7,6 +7,9 @@
  * @var string $nameCamelLower
  */
 
+/** @var string $prefix */
+$prefix = $cmd['selector-prefix'];
+
 //
 // 1. Create the directive class
 //
@@ -18,11 +21,11 @@ import { Directive, ElementRef, Renderer } from '@angular/core';
  
  * Usage:
  * 
- *    <div app$nameCamel></div>
+ *    <div {$prefix}{$nameCamel}></div>
  
  */
 @Directive({
-  selector: '[app$nameCamel]',
+  selector: '[{$prefix}{$nameCamel}]',
 })
 export class {$nameCamel}Directive {
 

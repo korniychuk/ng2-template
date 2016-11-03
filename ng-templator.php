@@ -36,7 +36,13 @@ $cmd->option('wc')
 
 $cmd->option('tp')
     ->aka('tag-prefix')
-    ->describedAs('Create a prefix for tag selector. (Need for component)');
+    ->describedAs('Create a prefix for tag selector. (Need for component)')
+    ->default('app-');
+
+$cmd->option('sp')
+    ->aka('selector-prefix')
+    ->describedAs('Create a prefix for attribute selector. (Need for directive)')
+    ->default('app');
 
 /*
 
