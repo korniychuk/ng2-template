@@ -27,7 +27,7 @@ $cmd->option('s')
         $preprocessors = array('less', 'scss');
         return in_array($title, $preprocessors);
     })
-    ->default('less');
+    ->default('scss');
 
 $cmd->option('wc')
     ->aka('with-component')

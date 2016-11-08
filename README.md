@@ -37,9 +37,9 @@ Makes structure:
         ├───my-component.component.spec.ts
         
 Parameters:
-- `-tp\--tag-prefix my-` - makes prefix `my-` for component tag selector.  
+- `-tp\--tag-prefix my` - (Note! without dash) makes prefix `my-` for component tag selector.  
   Default value is `app-`
-- `-s\--style scss` - generate styles in `.scss` format instead of `.less`
+- `-s\--style less` - generate styles in `.less` format instead of `.scss`
 
 
 ### Module
