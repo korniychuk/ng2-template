@@ -59,6 +59,7 @@ console.log('`$nameCamel` bundle loaded asynchronously');
 export default class {$nameCamel}Module {
   static routes = routes;
 }
+
 TPL;
 if ($isWithComponent) {
     $tpl = str_replace('%ROOT_COMPONENT%', "{$nameCamel}Component,", $tpl);
@@ -80,6 +81,7 @@ import { {$nameCamel}Component } from './$name.component';
 export const routes = [
   { path: '', component: {$nameCamel}Component, pathMatch: 'full' }
 ];
+
 TPL;
 } else {
     $tpl = <<<TPL
@@ -90,6 +92,7 @@ import { ComponentName } from './component-name.component';
 export const routes: Route[] = [
   { path: '', component: ComponentName, pathMatch: 'full' }
 ];
+
 TPL;
 }
 makeFile($dir."/$name.routes.ts", $tpl);
