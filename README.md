@@ -13,6 +13,7 @@ Notice: `~/bin` should be added to $PATH.
 ## Generating of blanks
 
 - [Component](#component)
+- [Small Component](#small-component)
 - [Module](#module)
 - [Directive](#directive)
 - [Pipe](#pipe)
@@ -36,6 +37,25 @@ Makes structure:
         ├───my-component.component.ts
         ├───my-component.component.spec.ts
         
+Parameters:
+- `-tp\--tag-prefix my` - (Note! without dash) makes prefix `my-` for component tag selector.  
+  Default value is `app-`
+- `-s\--style less` - generate styles in `.less` format instead of `.scss`
+
+
+### Small Component
+```bash
+$ ngt small-component my-component
+```
+
+Makes component with inline styles and template
+
+Makes structure:
+
+    .
+    ├───my-component.component.ts
+    ├───my-component.component.spec.ts
+
 Parameters:
 - `-tp\--tag-prefix my` - (Note! without dash) makes prefix `my-` for component tag selector.  
   Default value is `app-`
