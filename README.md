@@ -141,3 +141,47 @@ Makes structure:
     .
     ├───user.model.ts
     ├───user.model.spec.ts
+    
+Parameters:
+- `-f\--fields` makes fields for the model.  
+  Available modifiers:
+  - `s` - string (also default if not specified)
+  - `b` - boolean
+  - `n` - number
+  - `a` - any
+  
+  Every model has `id:n` field by default.
+
+  Example: `name;surname;email:s;age:n;isAdmin:b;createdAt:a`
+  Result will be
+  - `user.model.ts`  
+    Declarations:  
+    ```
+    public id: number;
+    public name: string;
+    public surname: string;
+    public email: string;
+    public age: number;
+    public isAdmin: boolean;
+    public createdAt: any;
+    ```
+    Initializations:
+    ```
+    this.id      = +data.id || null;
+    this.name    = data.name || null;
+    this.surname = data.surname || null;
+    this.email   = data.email || null;
+    this.age     = +data.age || null;
+    this.isAdmin = data.isAdmin !== undefined && data.isAdmin !== null ? Boolean(data.isAdmin) : null;
+    this.createdAt = data.createdAt || null;
+    ```
+    Data in `.spec.ts`:
+    ```
+    id:     1,
+    name:   'Test string 1',
+    surname: 'Test string 2',
+    email:  'Test string 3',
+    age:    2,
+    isAdmin: true,
+    createdAt: 'Any as string 1',
+    ```

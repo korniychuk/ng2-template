@@ -7,9 +7,54 @@
  * @var string $nameCamelLower
  */
 
+/** @var string $fields */
+$fieldsStr = $cmd['fields'];
+
+//
+// 0. Parsing fields
+//
+$fields = ['id' => 'number'];
+$typesMap = [
+    's' => 'string',
+    'n' => 'number',
+    'b' => 'boolean',
+    'a' => 'any',
+];
+if ($fieldsStr) {
+    if (!preg_match('/^(([\w]+)(?::(\w))?)(?:;(?1))*$/', $fieldsStr)) {
+        throw new Exception('Incorrect fields format');
+    }
+
+    foreach(explode(';', $fieldsStr) as $key => $field) {
+        $details = explode(':', $field);
+        $fieldName = $details[0];
+        $fieldType = isset($details[1]) ? $details[1] : null;
+        $fields[$fieldName] = $fieldType ? $typesMap[$fieldType] : 'string';
+    }
+}
+
+
 //
 // 1. Create the model class
 //
+$declarations    = [];
+$initializations = [];
+$parserMap = [
+    'string'  => function ($name) { return "data.$name || null"; },
+    'number'  => function ($name) { return "+data.$name || null"; },
+    'boolean' => function ($name) { return "data.$name !== undefined && data.$name !== null ? Boolean(data.$name) : null"; },
+    'any'     => function ($name) { return "data.$name || null"; },
+];
+$maxLength = array_reduce($fields, function($len, $b) { return $len >= strlen($b) ? $len : strlen($b); }, 0);
+foreach($fields as $fName => $fType) {
+    $declarations[] = "  public $fName: $fType;";
+
+    $fNameSpaced       = str_pad($fName, $maxLength);
+    $valueExtractor    = $parserMap[$fType]($fName);
+    $initializations[] = "    this.$fNameSpaced = $valueExtractor;";
+}
+$declarations    = implode("\n", $declarations);
+$initializations = implode("\n", $initializations);
 $tpl = <<<TPL
 import { Model } from 'app/core/model';
 
@@ -17,7 +62,7 @@ import { Model } from 'app/core/model';
  * $nameCamel Model
  */
 export class $nameCamel extends Model<$nameCamel> {
-  public id: number;
+{$declarations}
 
   /**
    * @inheritDoc
@@ -25,7 +70,7 @@ export class $nameCamel extends Model<$nameCamel> {
   public constructor(data: any = {}) {
     super(data);
 
-    this.id = +data.id || null;
+{$initializations}
   } // end constructor()
 
 }
@@ -37,6 +82,19 @@ makeFile("$name.model.ts", $tpl);
 //
 // 2. Create a test for the model
 //
+$generatorMap = [
+    'string'  => function() { static $num = 1; return "'Test string ".$num++."'"; },
+    'number'  => function() { static $num = 1; return $num++; },
+    'boolean' => function() { static $num = 1; return ($num++)%2 ? 'true' : 'false'; },
+    'any'     => function() { static $num = 1; return "'Any as string ".$num++."'"; },
+];
+$data = [];
+foreach ($fields as $fName => $fType) {
+    $nameAndColumn = str_pad($fName.':', $maxLength);
+    $value = isset($generatorMap[$fType]) ? $generatorMap[$fType]() : "'No generator'";
+    $data[] = "      $nameAndColumn $value,";
+}
+$data = implode("\n", $data);
 $tpl = <<<TPL
 /* tslint:disable:no-unused-variable */
 
@@ -51,7 +109,7 @@ describe('Model: $nameCamel', () => {
 
   it('should create an instance with initial data', () => {
     let data: any = {
-        id: 10,
+{$data}
     };
 
     let expectedModel: $nameCamel = Object.assign(Object.create($nameCamel.prototype), data, {

@@ -44,6 +44,10 @@ $cmd->option('sp')
     ->describedAs('Create a prefix for attribute selector. (Need for directive)')
     ->default('app');
 
+$cmd->option('f')
+    ->aka('fields')
+    ->describedAs('Model fields in "name.type;name2.type2;..." format. (Need for models)');
+
 /*
 
 // Define a flag "-t" a.k.a. "--title"
