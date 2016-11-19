@@ -149,10 +149,12 @@ Parameters:
   - `b` - boolean
   - `n` - number
   - `a` - any
+  - `MyClass` - custom type definition
   
-  Every model has `id:n` field by default.
+  Every model has `id:n` field by default.  
+  If you don't want to use `id` just specify field `-id` in fields. Example: `-f '-id'`.
 
-  Example: `name;surname;email:s;age:n;isAdmin:b;createdAt:a`
+  Example: `name;surname;email:s;age:n;isAdmin:b;currency:Currency;createdAt:a`
   Result will be
   - `user.model.ts`  
     Declarations:  
@@ -163,25 +165,28 @@ Parameters:
     public email: string;
     public age: number;
     public isAdmin: boolean;
+    public currency: Currency;
     public createdAt: any;
     ```
     Initializations:
     ```
-    this.id      = +data.id || null;
-    this.name    = data.name || null;
-    this.surname = data.surname || null;
-    this.email   = data.email || null;
-    this.age     = +data.age || null;
-    this.isAdmin = data.isAdmin !== undefined && data.isAdmin !== null ? Boolean(data.isAdmin) : null;
+    this.id        = +data.id || null;
+    this.name      = data.name || null;
+    this.surname   = data.surname || null;
+    this.email     = data.email || null;
+    this.age       = +data.age || null;
+    this.isAdmin   = data.isAdmin !== undefined && data.isAdmin !== null ? Boolean(data.isAdmin) : null;
+    this.currency  = data.currency || null;
     this.createdAt = data.createdAt || null;
     ```
     Data in `.spec.ts`:
     ```
-    id:     1,
-    name:   'Test string 1',
-    surname: 'Test string 2',
-    email:  'Test string 3',
-    age:    2,
-    isAdmin: true,
-    createdAt: 'Any as string 1',
+    id:         1,
+    name:       'Test string 1',
+    surname:    'Test string 2',
+    email:      'Test string 3',
+    age:        2,
+    isAdmin:    true,
+    currency:   'No generator. Using some string 1',
+    createdAt:  'Any as string 1',
     ```

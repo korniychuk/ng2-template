@@ -98,7 +98,7 @@ $generatorMap = [
     'number'  => function() { static $num = 1; return $num++; },
     'boolean' => function() { static $num = 1; return ($num++)%2 ? 'true' : 'false'; },
     'any'     => function() { static $num = 1; return "'Any as string ".$num++."'"; },
-    ''        => function() { static $num = 1; return "'No generator. Using this string ".$num++."'"; },
+    ''        => function() { static $num = 1; return "'No generator. Using some string ".$num++."'"; },
 ];
 $data = [];
 foreach ($fields as $fName => $fType) {
