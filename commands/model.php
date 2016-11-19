@@ -21,7 +21,7 @@ $typesMap = [
     'a' => 'any',
 ];
 if ($fieldsStr) {
-    if (!preg_match('/^(([\w]+)(?::(\w))?)(?:;(?1))*$/', $fieldsStr)) {
+    if (!preg_match('/^((-?[\w]+)(?::(\w))?)(?:;(?1))*$/', $fieldsStr)) {
         throw new Exception('Incorrect fields format');
     }
 
@@ -29,7 +29,14 @@ if ($fieldsStr) {
         $details = explode(':', $field);
         $fieldName = $details[0];
         $fieldType = isset($details[1]) ? $details[1] : null;
-        $fields[$fieldName] = $fieldType ? $typesMap[$fieldType] : 'string';
+        if ($fieldName[0] === '-') {
+            $fieldName = substr($fieldName, 1);
+            if (isset($fields[$fieldName])) {
+                unset($fields[$fieldName]);
+            }
+        } else {
+            $fields[$fieldName] = $fieldType ? $typesMap[$fieldType] : 'string';
+        }
     }
 }
 
