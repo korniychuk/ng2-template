@@ -21,7 +21,7 @@ $typesMap = [
     'a' => 'any',
 ];
 if ($fieldsStr) {
-    if (!preg_match('/^((-?[\w]+)(?::(\w))?)(?:;(?1))*$/', $fieldsStr)) {
+    if (!preg_match('/^((-?[\w]+)(?::([\w_]+))?)(?:;(?1))*$/', $fieldsStr)) {
         throw new Exception('Incorrect fields format');
     }
 
@@ -35,7 +35,11 @@ if ($fieldsStr) {
                 unset($fields[$fieldName]);
             }
         } else {
-            $fields[$fieldName] = $fieldType ? $typesMap[$fieldType] : 'string';
+            $fields[$fieldName] = $fieldType
+                ? (isset($typesMap[$fieldType])
+                    ? $typesMap[$fieldType] // alias
+                    : $fieldType)           // the type
+                : 'string';                 // default type
         }
     }
 }
@@ -57,7 +61,7 @@ foreach($fields as $fName => $fType) {
     $declarations[] = "  public $fName: $fType;";
 
     $fNameSpaced       = str_pad($fName, $maxLength);
-    $valueExtractor    = $parserMap[$fType]($fName);
+    $valueExtractor    = (isset($parserMap[$fType]) ? $parserMap[$fType] : $parserMap['any']) ($fName);
     $initializations[] = "    this.$fNameSpaced = $valueExtractor;";
 }
 $declarations    = implode("\n", $declarations);
@@ -94,11 +98,12 @@ $generatorMap = [
     'number'  => function() { static $num = 1; return $num++; },
     'boolean' => function() { static $num = 1; return ($num++)%2 ? 'true' : 'false'; },
     'any'     => function() { static $num = 1; return "'Any as string ".$num++."'"; },
+    ''        => function() { static $num = 1; return "'No generator. Using this string ".$num++."'"; },
 ];
 $data = [];
 foreach ($fields as $fName => $fType) {
     $nameAndColumn = str_pad($fName.':', $maxLength+1);
-    $value = isset($generatorMap[$fType]) ? $generatorMap[$fType]() : "'No generator'";
+    $value = (isset($generatorMap[$fType]) ? $generatorMap[$fType] : $generatorMap[''])();
     $data[] = "      $nameAndColumn $value,";
 }
 $data = implode("\n", $data);
