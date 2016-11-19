@@ -56,7 +56,7 @@ foreach($fields as $fName => $fType) {
 $declarations    = implode("\n", $declarations);
 $initializations = implode("\n", $initializations);
 $tpl = <<<TPL
-import { Model } from 'app/core/model';
+import { Model } from 'app/helpers/model';
 
 /**
  * $nameCamel Model
