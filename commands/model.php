@@ -45,7 +45,7 @@ $parserMap = [
     'boolean' => function ($name) { return "data.$name !== undefined && data.$name !== null ? Boolean(data.$name) : null"; },
     'any'     => function ($name) { return "data.$name || null"; },
 ];
-$maxLength = array_reduce($fields, function($len, $b) { return $len >= strlen($b) ? $len : strlen($b); }, 0);
+$maxLength = array_reduce(array_keys($fields), function($len, $b) { return $len >= strlen($b) ? $len : strlen($b); }, 0);
 foreach($fields as $fName => $fType) {
     $declarations[] = "  public $fName: $fType;";
 
@@ -90,7 +90,7 @@ $generatorMap = [
 ];
 $data = [];
 foreach ($fields as $fName => $fType) {
-    $nameAndColumn = str_pad($fName.':', $maxLength);
+    $nameAndColumn = str_pad($fName.':', $maxLength+1);
     $value = isset($generatorMap[$fType]) ? $generatorMap[$fType]() : "'No generator'";
     $data[] = "      $nameAndColumn $value,";
 }
