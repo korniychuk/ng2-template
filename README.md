@@ -153,6 +153,7 @@ Parameters:
   
   Every model has `id:n` field by default.  
   If you don't want to use `id` just specify field `-id` in fields. Example: `-f '-id'`.
+  Notice: Specify `-id` as first column will not works.
 
   Example: `name;surname;email:s;age:n;isAdmin:b;currency:Currency;createdAt:a`
   Result will be
