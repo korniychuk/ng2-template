@@ -19,8 +19,8 @@ import { Injectable } from '@angular/core';
 @Injectable()
 export class {$nameCamel}Service {
 
-  constructor() {
-  }
+  public constructor() {
+  } // end constructor()
 
 }
 
@@ -36,7 +36,7 @@ $tpl = <<<TPL
 import { TestBed, async, inject } from '@angular/core/testing';
 import { {$nameCamel}Service } from './$name.service';
 
-describe('Service: {$nameCamel}', () => {
+describe('Service: {$nameCamel}Service', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       providers: [{$nameCamel}Service]
