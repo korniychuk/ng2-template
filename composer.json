@@ -1,10 +1,11 @@
 {
-    "name": "anton/ngt",
+    "name": "anton/ng2-template",
+    "description": "CLI generator for ankor webpack angular 2 start kit",
     "type": "project",
     "authors": [
         {
             "name": "Anton Korniychuk",
-            "email": "ancor.root@gmail.com"
+            "email": "ancor.dev@gmail.com"
         }
     ],
     "minimum-stability": "dev",
