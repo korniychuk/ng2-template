@@ -8,6 +8,7 @@
             "email": "ancor.dev@gmail.com"
         }
     ],
+    "bin": ["bin/ngt"],
     "minimum-stability": "dev",
     "require": {
         "nategood/commando": "*"
