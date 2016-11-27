@@ -29,7 +29,7 @@ import { Directive, ElementRef, Renderer } from '@angular/core';
 })
 export class {$nameCamel}Directive {
 
-  constructor(
+  public constructor(
     private el: ElementRef,
     private renderer: Renderer,
   ) {
@@ -55,7 +55,7 @@ $tpl = <<<TPL
 import { TestBed, async } from '@angular/core/testing';
 import { {$nameCamel}Directive } from './$name.directive';
 
-describe('Directive: $nameCamel', () => {
+describe('Directive: {$nameCamel}Directive', () => {
   it('should create an instance', () => {
     let directive = new {$nameCamel}Directive();
     expect(directive).toBeTruthy();
