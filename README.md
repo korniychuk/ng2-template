@@ -18,6 +18,7 @@ Notice: `~/bin` should be added to $PATH.
 - [Directive](#directive)
 - [Pipe](#pipe)
 - [Service](#service)
+- [Api Service](#api-service)
 - [Model](#model)
 
 ---
@@ -121,7 +122,19 @@ Makes structure:
 
 ### Service
 ```bash
-$ ngt service user-api
+$ ngt service auth
+```
+
+Makes structure:
+
+    .
+    ├───auth.service.ts
+    ├───auth.service.spec.ts
+
+
+### Api Service
+```bash
+$ ngt api user
 ```
 
 Makes structure:
@@ -131,7 +144,7 @@ Makes structure:
     ├───user-api.service.spec.ts
 
 
-#### Model
+### Model
 ```bash
 $ ngt model user
 ```

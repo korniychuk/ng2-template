@@ -9,7 +9,7 @@ $cmd->option()
     ->require()
     ->describedAs('Command name')
     ->must(function($title) {
-        $titles = array('component', 'small-component', 'module', 'pipe', 'service', 'directive', 'model');
+        $titles = array('component', 'small-component', 'module', 'pipe', 'service', 'api', 'directive', 'model');
         return in_array($title, $titles);
     });
 
@@ -28,10 +28,15 @@ $cmd->option('s')
     })
     ->default('scss');
 
-$cmd->option('wc')
+$cmd->flag('wc')
     ->aka('with-component')
     ->boolean()
     ->describedAs('Create a main component for the module? (need for module');
+
+$cmd->flag('br')
+    ->aka('base-rest')
+    ->boolean()
+    ->describedAs('Extend this api service from "BaseRestService" instead of "DefaultRestService". (Need for api)');
 
 $cmd->option('tp')
     ->aka('tag-prefix')
