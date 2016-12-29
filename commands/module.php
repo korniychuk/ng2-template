@@ -84,21 +84,22 @@ makeFile($dir."/$name.module.ts", $tpl);
 //
 if ($isWithComponent) {
     $tpl = <<<TPL
+import { Routes } from '@angular/router';
 import { {$nameCamel}Component } from './$name.component';
 
 // async components must be named routes for WebpackAsyncRoute
-export const routes = [
+export const routes: Routes = [
   { path: '', component: {$nameCamel}Component, pathMatch: 'full' }
 ];
 
 TPL;
 } else {
     $tpl = <<<TPL
-import { Route } from '@angular/router';
+import { Routes } from '@angular/router';
 import { ComponentName } from './component-name.component';
 
 // async components must be named routes for WebpackAsyncRoute
-export const routes: Route[] = [
+export const routes: Routes = [
   { path: '', component: ComponentName, pathMatch: 'full' }
 ];
 
