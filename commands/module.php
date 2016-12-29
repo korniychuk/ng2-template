@@ -33,7 +33,16 @@ $dir = $name;
 makeDir($dir);
 
 //
-// 2. Make module
+// 2. Make routes
+//
+$tpl = <<<TPL
+export * from './$name.module';
+
+TPL;
+makeFile($dir."/index.ts", $tpl);
+
+//
+// 3. Make module
 //
 $tpl = <<<TPL
 import { CommonModule } from '@angular/common';
@@ -56,7 +65,7 @@ console.log('`$nameCamel` bundle loaded asynchronously');
     RouterModule.forChild(routes),
   ]
 })
-export default class {$nameCamel}Module {
+export class {$nameCamel}Module {
   static routes = routes;
 }
 
@@ -68,10 +77,10 @@ if ($isWithComponent) {
     $tpl = str_replace('%ROOT_COMPONENT%', "", $tpl);
     $tpl = str_replace("%ROOT_COMPONENT_IMPORT%", "", $tpl);
 }
-makeFile($dir."/index.ts", $tpl);
+makeFile($dir."/$name.module.ts", $tpl);
 
 //
-// 3. Make routes
+// 4. Make routes
 //
 if ($isWithComponent) {
     $tpl = <<<TPL
