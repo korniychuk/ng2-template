@@ -21,28 +21,28 @@ $pluralName = Inflect::pluralize($name);
 // 1. Make an api service
 //
 $tpl = <<<TPL
-import { Injectable } from '@angular/core';
+import { Injectable, Inject } from '@angular/core';
 
-import { ${baseService}, RequestService } from 'app/modules/rest';
-import { AnyObject, StringObject } from 'app/helpers/typed-object';
+import { AnyObject, StringObject } from 'typed-object-interfaces';
 
+import { DefaultRestService, RestRequestService } from 'app/core/rest';
 import { ${nameCamel} } from 'app/models/${name}.model';
-import { config } from 'app/config';
+import { APP_CONFIG, AppConfig } from 'app/config';
 
 /**
  * $nameCamel Api Service
  */
 @Injectable()
 export class ${nameCamel}ApiService extends ${baseService}<${nameCamel}> {
-  protected baseUrl    = `\${config.apiBaseUrl}/${pluralName}`;
-  protected pluralName = '${pluralNameCamelLower}';
-  protected singleName = '${nameCamelLower}';
+  protected baseUrl: string;
   protected modelClass = ${nameCamel};
 
   public constructor(
-    request: RequestService,
+    restRequest: RestRequestService,
+    @Inject(APP_CONFIG) private config: AppConfig,
   ) {
-    super(request);
+    super(restRequest);
+    this.baseUrl = `\${config.apiBaseUrl}/${pluralName}`;
   }
 
   public makeModel(entity: AnyObject): ${nameCamel} {
